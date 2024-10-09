@@ -52,8 +52,8 @@ catch (NoResultException nre){
 
     @Override
     @Transactional
-    public List<Courses> getStudentsCourses(String name) throws Exception {
-        TypedQuery<Courses> students= entityManager.createQuery("from Students s where s.studentName=:studentName",Courses.class);
+    public List<Students> getStudentsCourses(String name) throws Exception {
+        TypedQuery<Students> students= entityManager.createQuery("from Students s where s.studentName=:studentName",Students.class);
 
         students.setParameter("studentName",name);
 
@@ -63,16 +63,16 @@ catch (NoResultException nre){
 
     @Override
     @Transactional
-    public List<Courses> findCoursesByName( String  courses) throws Exception {
+    public  List<Courses>  findCourseByName( List<String>  courses) throws Exception {
 
 
 
-        TypedQuery<Courses> students= entityManager.createQuery("from Courses c where c.courseName=:coursesName",Courses.class);
+        TypedQuery<Courses> coursesTypedQuery= entityManager.createQuery("from Courses   where  courseName IN (:coursesName)",Courses.class);
 
-        students.setParameter("coursesName",courses);
+        coursesTypedQuery.setParameter("coursesName",courses);
 
 
-        return students.getResultList();
+        return coursesTypedQuery.getResultList();
     }
 
     @Override

@@ -8,6 +8,10 @@ import com.example.boubyan.model.Students;
 import com.example.boubyan.security.JwtTokenUtil;
 import com.example.boubyan.security.JwtUserDetailsService;
 import com.example.boubyan.service.BackingService;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +25,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static com.example.boubyan.controller.urls.URLS.*;
 
@@ -76,7 +82,7 @@ public class CoursesController {
     }
 
     @PostMapping(ADD_STUDENT_COURSES)
-    public ResponseEntity addCourses(@RequestParam("course")  String  courses) throws Exception {
+    public ResponseEntity addCourses(@RequestParam("courses")  List<String>  courses) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String result = this.backingService.addCousrses(authentication.getName(), courses);
@@ -119,36 +125,44 @@ public class CoursesController {
     public  ResponseEntity  export() throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Document doc = new Document();
+
         try
         {
 
 
             List<CourseDetails> courseDetails=this.backingService.getCourseDetails(authentication.getName());
-            FileOutputStream fos = new FileOutputStream("Courses.pdf");
-            PdfWriter writer = PdfWriter.getInstance(doc, fos);
 
-            doc.add(new Paragraph("                    COURSES TIME SLOTS FOR USER : "+authentication.getName()));
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("courses.pdf"));
 
-          for(CourseDetails coursesResult:courseDetails) {
-              doc.add(new Paragraph("                                       "));
-              doc.add(new Paragraph(coursesResult.getCourses()+"   "+coursesResult.getCreatedOn()));
-          }
-            doc.close();
+            document.open();
 
-            fos.close();
+            PdfPTable table = new PdfPTable(2);
+            Stream.of("Student", "Time-Slot")
+                    .forEach(columnTitle -> {
+                        PdfPCell header = new PdfPCell();
+                        header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                        header.setBorderWidth(2);
+                        header.setPhrase(new Phrase(columnTitle));
+                        table.addCell(header);
+                    });
+
+for(CourseDetails courseDetailsResult:courseDetails) {
 
 
+    table.setHorizontalAlignment(Element.ALIGN_CENTER);
+    table.addCell(courseDetailsResult.getStudentName()+"  -   "+courseDetailsResult.getCreatedOn());
+}
+
+
+
+
+            document.add(table);
+            document.close();
+
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         }
-        catch (DocumentException e)
-        {
-            e.printStackTrace();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
         return ResponseEntity.ok("PDF CREATED");
     }
 
@@ -173,4 +187,8 @@ public class CoursesController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+
+
+
 }

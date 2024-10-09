@@ -19,7 +19,7 @@ public interface BackingService {
 
     Set<Courses> getCousrses(String name) throws Exception;
 
-    String addCousrses(String name,  String  courses)  throws Exception;
+    String addCousrses(String name,  List<String>  courses)  throws Exception;
 
     void deleteCourses( String  coursesNames,String studentName) throws Exception;
 

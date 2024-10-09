@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,20 +85,21 @@ public class BackingServiceImpl implements BackingService {
     }
 
     @Override
-    public String addCousrses(String name, String  courses) throws Exception {
+    public String addCousrses(String name, List<String>  course ) throws Exception {
 
         Students students= this.boubyanRepository.findStudentByUserName(name);
 
-       List<Courses> coursesList=this.boubyanRepository.findCoursesByName(courses);
+        List<Courses>  courses =this.boubyanRepository.findCourseByName(course);
         CourseDetails courseDetails=new CourseDetails();
-        Set<Courses> coursesStream= new HashSet<>(coursesList);
+        Set<Courses> coursesStream= new HashSet<>(courses);
+
         students.setEnrolledCourses(coursesStream);
 
         students.setLocalDate( LocalDate.now());
         this.boubyanRepository.addCourseForUser(students);
         courseDetails.setStudentName(name);
-     Courses coursesNames =new Courses(courses);
-        courseDetails.setCourses(coursesNames);
+
+        courseDetails.setCreatedOn(new Date());
 
 
         this.boubyanRepository.saveCourseDetails(courseDetails);

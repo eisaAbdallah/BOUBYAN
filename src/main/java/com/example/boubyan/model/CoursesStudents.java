@@ -17,8 +17,7 @@ public class CoursesStudents {
     @Column(name="course_id")
     long courseId;
 
-    @CreationTimestamp
-    Instant timeSlot;
+
 
     public long getStudentId() {
         return studentId;
@@ -36,11 +35,5 @@ public class CoursesStudents {
         this.courseId = courseId;
     }
 
-    public Instant getTimeSlot() {
-        return timeSlot;
-    }
 
-    public void setTimeSlot(Instant timeSlot) {
-        this.timeSlot = timeSlot;
-    }
 }

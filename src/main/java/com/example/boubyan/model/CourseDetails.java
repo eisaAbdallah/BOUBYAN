@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,8 +26,9 @@ public class CourseDetails {
     @Column(name="student_name")
     String studentName;
     @OneToOne(mappedBy="courseDetails")
+    @Transient
      Courses  courses;
-    @CreationTimestamp
-    Instant createdOn;
+    @Column(name = "time_slot")
+    Date createdOn;
 
 }

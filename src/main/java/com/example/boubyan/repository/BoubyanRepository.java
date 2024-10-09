@@ -13,9 +13,9 @@ public interface BoubyanRepository {
 
     void saveToken(AuthenticationModel authenticationModel) throws  Exception;
 
-    List<Courses> getStudentsCourses(String name)throws  Exception;
+    List<Students> getStudentsCourses(String name)throws  Exception;
 
-    List<Courses> findCoursesByName( String  courses) throws  Exception;
+     List<Courses>  findCourseByName( List<String>  courses) throws  Exception;
 
     void addCourseForUser(Students students) throws  Exception;
 

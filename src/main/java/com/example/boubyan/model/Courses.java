@@ -32,7 +32,7 @@ public class Courses {
 
 
     @OneToOne
-    @JoinColumn(name="course_id", nullable=false)
+    @JoinColumn(name="course_id")
     private CourseDetails courseDetails;
 
 
