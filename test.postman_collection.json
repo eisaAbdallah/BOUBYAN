@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "75b169e7-2d7d-4c1a-bf56-1d3518a5f6b3",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19471830"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"userName\":\"test\",\n\"password\":\"test4\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD STUDENT",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"studentName\":\"test\",\n\"password\":\"test4\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addStudent",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"courseName\":\"C++\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addCourseDB",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addCourseDB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Course To Student",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNzI3Nzg2NjgzLCJpYXQiOjE3Mjc3Njg2ODN9.qckK57f1JacCj2QWhXQElZtS_Is1v0ku6F8HL9WY8qeyz-o2zXoCVfX-sBqkIwVNservxgJC9fdqb7Ns6Flu5w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\n\n\n\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addCourse?courses=JAVA,PYTHON",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addCourse"
+					],
+					"query": [
+						{
+							"key": "courses",
+							"value": "JAVA,PYTHON"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Courses Of Student",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNzI3Nzg2NjgzLCJpYXQiOjE3Mjc3Njg2ODN9.qckK57f1JacCj2QWhXQElZtS_Is1v0ku6F8HL9WY8qeyz-o2zXoCVfX-sBqkIwVNservxgJC9fdqb7Ns6Flu5w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"title\":\"test\",\n\"storyBody\":\"test4\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/getCourses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getCourses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNzI3Nzg2NjgzLCJpYXQiOjE3Mjc3Njg2ODN9.qckK57f1JacCj2QWhXQElZtS_Is1v0ku6F8HL9WY8qeyz-o2zXoCVfX-sBqkIwVNservxgJC9fdqb7Ns6Flu5w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"title\":\"test\",\n\"storyBody\":\"test4\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/deleteCourse",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteCourse"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
